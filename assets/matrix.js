@@ -1,6 +1,7 @@
 // geting canvas by Boujjou Achraf
         var c = document.getElementById("c");
         var ctx = c.getContext("2d");
+        var started = false;
 
         //making the canvas full screen
         c.height = document.documentElement.scrollHeight;
@@ -36,10 +37,24 @@
         
         }
             
-            setInterval(draw,55);
+        function run(){
+            if(!started){
+                started = true;
+                setInterval(draw,65);
+                setInterval(() => {
+                    ctx.fillStyle = "rgba(0, 0, 0, 0.04)";
+                    ctx.fillRect(c.width*0.0, 0, c.width, c.height);
+                }, 125);
+            }
+        }
 
-        setInterval(() => {
-            
-            ctx.fillStyle = "rgba(0, 0, 0, 0.04)";
-            ctx.fillRect(c.width*0.0, 0, c.width, c.height);
-        }, 125);
+    
+        if(window.screen.width >= 1370){  
+            run();
+        }
+
+        window.addEventListener('scroll', function() {
+           if(window.screen.width < 1370){   
+                run();
+           }
+        })
